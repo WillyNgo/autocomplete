@@ -15,7 +15,8 @@ try {
     $usersQuery = "CREATE TABLE users("
             . "id INT PRIMARY KEY AUTO_INCREMENT,"
             . "username VARCHAR(255),"
-            . "password VARCHAR(255)"
+            . "hashedPassword VARCHAR(255),"
+            . "loginAttempt INT"
             . ");";
     
     $pdo->exec($dropQuery);

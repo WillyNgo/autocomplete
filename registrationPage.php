@@ -9,19 +9,23 @@
         <div id="formWrapper">
             <form id="searchForm" action="" method="get">
                 <p>New Username: <input type="text" name="newusername"> </p>
-                <p>New Password: <input type="text" name="newpassword"/></p>
-                <p>Confirm Password: <input type="text" name="confirmpassword"/></p>
+                <p>New Password: <input type="password" name="newpassword"/></p>
+                <p>Confirm Password: <input type="password" name="confirmpassword"/></p>
                 <input type="submit" name="register" value="Register"/>
             </form>
         </div>
         <?php
         //This file will include validation methods;
-        include('Validation.php');
-        include('Registration.php');
+        include('validation.php');
+        include('registrationAction.php');
         
         if(isset($_GET['register'])){
             //Check if there's something in the username and passwords field
-            if ($_GET['newusername'] != '' || $_GET['newpassword'] != '' || $_GET['confirmpassword']) {
+            if ($_GET['newusername'] == '' || $_GET['newpassword'] == '' || $_GET['confirmpassword'] == '') {
+                
+                echo "<p class='error'>Please do not leave any fields blank</p>";
+            }
+            else{
                 //If confirmpassword is not the same as newpassword
                 if($_GET['newpassword'] != $_GET['confirmpassword'])
                 {
@@ -35,9 +39,6 @@
                 {
                     registerUser($_GET['newusername'], $_GET['confirmpassword']);
                 }
-            }
-            else{
-                echo "<p class='error'>Please do not leave any fields blank</p>";
             }
         }
         ?>

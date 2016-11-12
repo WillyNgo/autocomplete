@@ -7,13 +7,30 @@
  * Returns true if credentials are correct.
  * 
  * @param String $user
- * @param String $password
+ * @param String $submittedPassword
  * @return boolean $isAuthenticated
  */
-function validateUser($user, $password)
+function validatePassword($user, $submittedPassword)
 {
     $isAuthenticated = false;
+    $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
+    $query = "SELECT username, hashedPassword FROM users WHERE username = ?";
     
+    $stmt = $pdo->prepare($query);
+    
+    $stmt->bindParam(1, $user);
+    
+    //If a username was matched, check for password;
+    if($stmt->execute())
+    {
+        var_dump($stmt);
+        while($row = $stmt->fetch()){
+            $isAuthenticated = password_verify($submittedPassword, $row['hashedPassword']);
+            echo "<p>Hello bitches</p>";
+        }
+    }
+    
+    return $isAuthenticated;
 }
 
 /**
@@ -38,6 +55,7 @@ function usernameExists($submittedUsername)
         if($stmt->rowCount() == 1){
             $doesExists = true;
         }
-        
     }
+    
+    return $doesExists;
 }
