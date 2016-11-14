@@ -12,6 +12,7 @@
                 <p>New Password: <input type="password" name="newpassword"/></p>
                 <p>Confirm Password: <input type="password" name="confirmpassword"/></p>
                 <input type="submit" name="register" value="Register"/>
+                <input type="submit" name="backToLogin" value="Back to Log In" />
             </form>
         </div>
         <?php
@@ -40,6 +41,11 @@
                     registerUser($_GET['newusername'], $_GET['confirmpassword']);
                 }
             }
+        }
+        
+        if(isset($_GET['backToLogin'])){
+            header('location: loginPage.php');
+            exit;
         }
         ?>
     </body>

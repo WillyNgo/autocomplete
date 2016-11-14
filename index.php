@@ -23,6 +23,9 @@
             header('location: loginPage.php');
             exit;
         }
+        else{
+            echo "Welcome ".$_SESSION['username']."!";
+        }
         
         //Logout
         if(isset($_GET['logout']))

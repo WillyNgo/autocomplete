@@ -5,8 +5,9 @@
  */
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
-    $dropQuery = "DROP TABLE IF EXISTS users;\n"
-            . "DROP TABLE IF EXISTS cities;";
+    $dropQuery = "DROP TABLE IF EXISTS attempts;\n"
+            . "DROP TABLE IF EXISTS users;\n"
+            . "DROP TABLE IF EXISTS cities;\n";
     $citiesQuery = "CREATE TABLE cities("
             . 'id INT PRIMARY KEY AUTO_INCREMENT,'
             . 'population INT,'
@@ -19,13 +20,23 @@ try {
             . "loginAttempt INT"
             . ");";
     
+    $attemptsQuery = "CREATE TABLE attempts("
+            . "id INT PRIMARY KEY AUTO_INCREMENT,"
+            . "number INT"
+            . "ipAddress VARCHAR(255)"
+            . ");";
+    
+    
+    
     $pdo->exec($dropQuery);
     $pdo->exec($citiesQuery);
     $pdo->exec($usersQuery);
+    $pdo->exec($attemptsQuery);
     
     
     checkIfTablesExists($pdo, "cities");
     checkIfTablesExists($pdo, "users");
+    checkIfTablesExist($pdo, "attempts");
 } catch (PDOException $pdoe) {
     echo $pdoe->getMessage();
 } finally {

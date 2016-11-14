@@ -23,10 +23,8 @@ function validatePassword($user, $submittedPassword)
     //If a username was matched, check for password;
     if($stmt->execute())
     {
-        var_dump($stmt);
         while($row = $stmt->fetch()){
             $isAuthenticated = password_verify($submittedPassword, $row['hashedPassword']);
-            echo "<p>Hello bitches</p>";
         }
     }
     
