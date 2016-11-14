@@ -57,23 +57,17 @@ function resetDatabaseAttempts($user)
     }
 }
 
-function getLoginAttempt($user){
-    
-}
-
 function lockUser()
 {
     //Lock user for 1 min
     if(!isset($_SESSION['unlockTime'])){
         $_SESSION['unlockTime'] = time() + 60;
         echo "You've been locked out for 60 sec!";
-        //echo "unlock time is: ".($_SESSION['unlockTime'] - time());
     }
     else if(time() < $_SESSION['unlockTime']){
-        echo "You're still locked! Please try again in ".($_SESSION['unlockTime'] - time());
-        //echo "unlock time is: ".($_SESSION['unlockTime'] - time());
+        echo "You're still locked! Please try again in ".($_SESSION['unlockTime'] - time())." seconds";
     }
-    else{ //if(time() >= $_SESSION['unlockTime']){
+    else{ //If time is up, reset attempts
         resetAttempts();
     }
 }

@@ -2,11 +2,21 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Autocomplete</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="autocomplete.js"></script>
     </head>
     <body>
     <body>
-        <h1 id="title">Auto Completion - Index</h1>
+        <?php
+        session_start();
+        session_regenerate_id();
+        if(!isset($_SESSION['username'])){
+            header('location: loginPage.php');
+            exit;
+        }
+        ?>
+        <h1 id="title">Auto Completion - Index <?php echo " : Welcome ".$_SESSION['username'];?></h1>
         <div id="formWrapper">
             <form id="searchForm" action="" method="get">
                 <p>Search: <input type="text" name="search"> </p>
@@ -15,17 +25,7 @@
             </form>
         </div>
         <?php
-        session_start();
-        session_regenerate_id();
         
-        if(!isset($_SESSION['username']))
-        {
-            header('location: loginPage.php');
-            exit;
-        }
-        else{
-            echo "Welcome ".$_SESSION['username']."!";
-        }
         
         //Logout
         if(isset($_GET['logout']))
