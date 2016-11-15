@@ -12,7 +12,7 @@ function getDbConnection(){
 
 function searchCity($keyword){
     $pdo = getDbConnection();
-    $query = "SELECT cityname FROM cities WHERE cityname LIKE ?;";
+    $query = "SELECT cityname FROM cities WHERE cityname LIKE ? ORDER BY cityname ASC;";
     $stmt = $pdo->prepare($query);
     
     //Append % so that it acts like a wild card in the select query

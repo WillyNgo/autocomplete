@@ -21,16 +21,13 @@
         ?>
         <h1 id="title">Auto Completion - Index <?php echo " : Welcome ".$_SESSION['username']; ?></h1>            
         <form id="searchForm" action="" method="get">
-            <input type="text" name="search" placeholder="Search" id="search"/>
-            <div id="results">
-                <div class="item">abc</div>
-                <div class="item">def</div>
-                <div class="item">hij</div>
-            </div>
-
+            <input list="history" name="searchBar" placeholder="Search" id="searchBar"/>
+            <datalist id="history">
+            </datalist>
             <input type="submit" name="add" value="Submit"/>
             <input type="submit" name="logout" value="Logout"/>
         </form>
+        
         <?php
         //Logout
         if (isset($_GET['logout'])) {

@@ -1,29 +1,33 @@
-var MIN_LENGTH = 3;
-$(document).ready(function () {
-    $("#search").keyup(function () {
-        var keyword = $("#search").val();
-        if (keyword.length >= MIN_LENGTH) 
-        {
-            $.get("index.php", {keyword: keyword}).done(function (data) 
-            {console.log(data);
-                        var results = jQuery.parseJSON(data);
-                        $(results).each(function (key, value) {
-                            $('#results').append('<div class="item">' + value + '</div>');
-                        });
-
-                        $('.item').click(function () {
-                            var text = $(this).html();
-                            $('#search').val(text);
-                        });
+my = {};
+function init(){
+    my.searchKey = null;
+    $(function() {
+        $("#searchBar").keyup(function(){
+            var keyword = $("#searchBar").val();
+            
+            my.searchKey = $.ajax({
+                url: "ajax.php",
+                data: {'keyword': keyword},
+                type: "GET",
+                dataType: "text",
+                //result from json_encode
+                success: function(result){
+                    var datalist = document.getElementById("history");
+                    //empty history container to avoid over appending
+                    datalist.innerHTML = null;
+                    var received = JSON.parse(result);
+                    for(var i = 0; i < received.length; i++) {
+                        var city = received[i];
+                        var option = document.createElement("OPTION");
+                        var item = document.createTextNode(city['cityname']);
+                        
+                        //Add item to history data list
+                        option.appendChild(item);
+                        datalist.appendChild(option);
+                    } 
+               }
             });
-        } else {
-            $('#results').html('');
-        }
+        });
     });
-    $("#search").blur(function () {
-        $("#results").fadeOut(500);
-    })
-            .focus(function () {
-                $("#results").show();
-            });
-});
+}
+window.onload = init;
