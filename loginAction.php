@@ -1,36 +1,5 @@
 <?php
 
-function incrementDatabaseAttempt($user) {
-    try {
-        $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
-        $attempts = 0;
-        //Grab number of attempt
-        $queryAttempt = "SELECT loginAttempt FROM users WHERE username = ?;";
-        $stmt = $pdo->prepare($queryAttempt);
-        $stmt->bindParam(1, $user);
-        if ($stmt->execute()) {
-            while ($row = $stmt->fetch()) {
-                $attempts = $row['loginAttempt'];
-                var_dump($attempts);
-            }
-        }
-
-        //Update attempt number and set to users table
-        $attempts++;
-        var_dump($attempts);
-        $queryUpdate = ("UPDATE users SET loginAttempt = ? WHERE username = ?;");
-
-        $updateStmt = $pdo->prepare($queryUpdate);
-        $updateStmt->bindParam(1, $attempts);
-        $updateStmt->bindParam(2, $user);
-
-        $updateStmt->execute();
-        echo "incremented attempt";
-    } catch (PDOException $ex) {
-        echo $ex->getMessage();
-    }
-}
-
 function incrementAttempt(){
     $_SESSION['attempts']++;
 }
@@ -40,25 +9,12 @@ function resetAttempts(){
     unset($_SESSION['unlockTime']);
 }
 
-function resetDatabaseAttempts($user)
-{
-    try {
-        $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
-        
-        $queryUpdate = ("UPDATE users SET loginAttempt = 0 WHERE username = ?;");
-
-        $updateStmt = $pdo->prepare($queryUpdate);
-        $updateStmt->bindParam(1, $user);
-
-        $updateStmt->execute();
-        echo "incremented attempt";
-    } catch (PDOException $ex) {
-        echo $ex->getMessage();
-    }
-}
-
-function lockUser()
-{
+/**
+ * Method is called after failed three login attempts.
+ * It disables the text input as well as the buttons for 60 sec.
+ * After 60 seconds has passed, resets the attempt counter;
+ */
+function lockUser(){
     //Lock user for 1 min
     if(!isset($_SESSION['unlockTime'])){
         $_SESSION['unlockTime'] = time() + 60;
@@ -69,6 +25,8 @@ function lockUser()
     }
     else{ //If time is up, reset attempts
         resetAttempts();
+        header('location: loginPage.php');
+        exit;
     }
 }
 

@@ -1,16 +1,18 @@
 <?php
-
 /**
- * Creates an array from the cities.txt and fills it with each line of the txt.
+ * This php file will populate the cities table by an array from the cities.txt and fills it with each line of the txt.
  * Adds each line, substringing the appropriate information, into the database 
  */
-try {
-    $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+include('dbUtility.php');
+
+try {
+    $pdo = getDbConnection();
+    
     $cityList = file('cities.txt');
+    
+    //Populate the table by going through each line of the cities.txt and inserting them to the table.
     for ($i = 0; $i < count($cityList); $i++) {
-        //$line is an array that contains
         $line = explode(";", $cityList[$i]);
         $population = trim($line[0]);
         $cityname = trim($line[1]);
