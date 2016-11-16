@@ -12,6 +12,7 @@ function init(){
                 dataType: "text",
                 //result from json_encode
                 success: function(result){
+                    console.log(result);
                     var datalist = document.getElementById("history");
                     //empty history container to avoid over appending
                     datalist.innerHTML = null;

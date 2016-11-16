@@ -39,6 +39,7 @@ and open the template in the editor.
         </div>
         
         <?php
+        
         var_dump($_SESSION['attempts']);
         //Login when user clicks
         if (isset($_GET['login'])) {

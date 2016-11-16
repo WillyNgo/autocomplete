@@ -20,7 +20,7 @@
         
         ?>
         <h1 id="title">Auto Completion - Index <?php echo " : Welcome ".$_SESSION['username']; ?></h1>            
-        <form id="searchForm" action="" method="get">
+        <form id="searchForm" action="" method="post">
             <input list="history" name="searchBar" placeholder="Search" id="searchBar"/>
             <datalist id="history">
             </datalist>
@@ -29,8 +29,12 @@
         </form>
         
         <?php
+        
+        if(isset($_POST['add'])){
+            addToHistory($_SESSION['username'], $_POST['searchBar']);
+        }
         //Logout
-        if (isset($_GET['logout'])) {
+        if (isset($_POST['logout'])) {
             unset($_SESSION['username']);
             header('location: index.php');
             exit;

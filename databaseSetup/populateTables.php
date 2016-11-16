@@ -32,11 +32,11 @@ try {
  */
 function insertToDatabase($pdo, $pop, $name) {
     try {
-        $query = "INSERT INTO cities (population, cityname) VALUES (?, ?);";
+        $query = "INSERT INTO cities (cityname, weight) VALUES (?, ?);";
         $stmt = $pdo->prepare($query);
 
-        $stmt->bindParam(1, $pop);
-        $stmt->bindParam(2, $name);
+        $stmt->bindParam(1, $name);
+        $stmt->bindParam(2, $pop);
 
         $stmt->execute();
         echo "Inserted " . $name . " entry \n";

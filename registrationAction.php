@@ -19,17 +19,18 @@ function registerUser($user, $password)
     
     try{
         $pdo = getDbConnection();
-        $query = ("INSERT INTO users(username, hashedPassword, loginAttempt) VALUES (?, ?, ?);");
+        $query = ("INSERT INTO users(username, hashedPassword) VALUES (?, ?);");
         $attempts = 0;
         $stmt = $pdo->prepare($query);
         
         $stmt->bindParam(1, $user);
         $stmt->bindParam(2, $hashPassword);
-        $stmt->bindParam(3, $attempts);
         
         //If user has been successfully added to the database, automatically log in
         if($stmt->execute()){
-            login($user);
+            $_SESSION['username'] = $user;
+            header('location: index.php');
+            exit;
         }
     } catch (PDOException $ex) {
         echo $ex->getMessage();
