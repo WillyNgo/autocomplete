@@ -29,9 +29,15 @@
         </form>
         
         <?php
-        
+        //When user submits his entry
         if(isset($_POST['add'])){
-            addToHistory($_SESSION['username'], $_POST['searchBar']);
+            //Check if it's a valid city
+            if(isValidCity($_POST['searchBar'])){
+                addToHistory($_SESSION['username'], $_POST['searchBar']);
+            }
+            else{
+                echo "Not a valid city!";
+            }
         }
         //Logout
         if (isset($_POST['logout'])) {

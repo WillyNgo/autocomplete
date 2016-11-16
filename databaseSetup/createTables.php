@@ -3,7 +3,7 @@
  * This php file will create (and drop if already exists) the tables necessary 
  * for the project. There are 2 tables: cities and users.
  */
-require('dbUtility.php');
+require('../dbUtility.php');
 try {
     $pdo = getDbConnection();
     
@@ -33,7 +33,7 @@ function createCities($pdo){
 function createHistory($pdo){
     dropTable($pdo, "history");
     $historyQuery = "CREATE TABLE history("
-            . 'id INT PRIMARY KEY AUTO INCREMENT,'
+            . 'id INT PRIMARY KEY AUTO_INCREMENT,'
             . 'username VARCHAR(255),'
             . 'cityname VARCHAR(255),'
             . 'weight INT'

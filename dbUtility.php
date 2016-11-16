@@ -9,6 +9,19 @@ function getDbConnection(){
     return $pdo;
 }
 
+function getFromHistory($user){
+    $pdo = getDbConnection();
+    $query = "SELECT cityname FROM history WHERE username = ?;";
+    
+    $stmt = $pdo->prepare($query);
+    
+    $stmt->bindParam(1, $user);
+    
+    if($stmt->execute()){
+        
+    }
+}
+
 function addToHistory($user, $city){
     try{
         $pdo = getDbConnection();
@@ -44,12 +57,19 @@ function addToHistory($user, $city){
 function isValidCity($city){
     $pdo = getDbConnection();
     $query = "SELECT cityname FROM cities WHERE cityname = ?;";
-    
+    $doesExists = false;
     $stmt = $pdo->prepare($query);
     
     $stmt->bindParam(1, $city);
     
-    return (!empty($stmt->execute()));
+    if($stmt->execute()){
+        $row = $stmt->fetchColumn();
+        if($row != 0){
+            $doesExists = true;
+        }
+    }
+    
+    return $doesExists;
 }
 
 function getWeightFromCity($city){
