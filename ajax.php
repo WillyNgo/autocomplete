@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type:application/json');
 require('dbUtility.php');
 $pdo = getDbConnection();
@@ -18,6 +19,8 @@ if($historyStmt->execute()){
     $weight = $row['weight'];
 }
 */
+
+
 //Preparing city Query
 $stmt = $pdo->prepare($cityQuery);
 //set fetchmode to fetch_class to create a City obj

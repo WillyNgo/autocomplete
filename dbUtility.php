@@ -16,23 +16,29 @@ function getFromHistory($user){
     $stmt = $pdo->prepare($query);
     
     $stmt->bindParam(1, $user);
-    
+    $list = array();
     if($stmt->execute()){
+        while($row = $stmt->fetch()){
+            array_push($list, $row);
+        }
+    }
+    
+    return $list;
+}
+
+function setHistory($username){
+    $myHistory = getFromHistory($username);    
+    for($i = 0; $i < count($myHistory); $i++){
         
+        echo "<p>{$myHistory[$i]['cityname']}</p>";
     }
 }
 
-function addToHistory($user, $city){
+function addToHistoryTable($user, $city){
     try{
         $pdo = getDbConnection();
     $query = "INSERT INTO history(username, cityname, weight) VALUES (?, ?, ?);";
     $weight = 0;
-    
-    //Check if user input is a valid city
-    //If it's not valid city, weight will be 0. Still insert into database
-    if(isValidCity($city)){
-        $weight = getWeightFromCity($city);
-    }
     
     $stmt = $pdo->prepare($query);
     
@@ -61,10 +67,11 @@ function isValidCity($city){
     $stmt = $pdo->prepare($query);
     
     $stmt->bindParam(1, $city);
-    
     if($stmt->execute()){
         $row = $stmt->fetchColumn();
-        if($row != 0){
+        
+        //If something was retrieved,, return true
+        if($row != ''){
             $doesExists = true;
         }
     }

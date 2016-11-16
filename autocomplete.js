@@ -1,5 +1,15 @@
 my = {};
 function init(){
+    showSuggestions();
+}
+
+/**
+ * For every keyup, this function will send a request to a php file that will
+ * fetch all the city that matches with the term in the search
+ * 
+ * @returns 
+ */
+function showSuggestions(){
     my.searchKey = null;
     $(function() {
         $("#searchBar").keyup(function(){

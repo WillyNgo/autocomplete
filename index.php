@@ -22,19 +22,28 @@
         ?>
         <h1 id="title">Auto Completion - Index <?php echo " : Welcome ".$_SESSION['username']; ?></h1>            
         <form id="searchForm" action="" method="post">
-            <input list="history" name="searchBar" placeholder="Search" id="searchBar"/>
+            <input list="history" name="searchBar" placeholder="Search a city..." id="searchBar"/>
             <datalist id="history">
             </datalist>
-            <input type="submit" name="add" value="Submit"/>
+            <input type="submit" name="add" id="addButton" value="Submit"/>
             <input type="submit" name="logout" value="Logout"/>
         </form>
+        
+        <div id="historyBox">
+            <div id="historyBoxHeader">Recent Searches</div>
+            <div id="historyBoxItems">
+                
+            </div>
+        </div>
         
         <?php
         //When user submits his entry
         if(isset($_POST['add'])){
+            $searchTerm = $_POST['searchBar']; 
+           
             //Check if it's a valid city
-            if(isValidCity($_POST['searchBar'])){
-                addToHistory($_SESSION['username'], $_POST['searchBar']);
+            if(isValidCity($searchTerm)){
+                addToHistoryTable($_SESSION['username'], $_POST['searchBar']);
             }
             else{
                 echo "Not a valid city!";
@@ -47,6 +56,9 @@
             header('location: index.php');
             exit;
         }
+        
+        //Set the user's recent search
+        setHistory($_SESSION['username']);
         ?>
     </body>
 </html>
