@@ -19,6 +19,9 @@ function lockUser(){
     if(!isset($_SESSION['unlockTime'])){
         $_SESSION['unlockTime'] = time() + 60;
         echo "You've been locked out for 60 sec!";
+        
+    echo "<script type='text/javascript'>alert('LOCKED');</script>";
+        
     }
     else if(time() < $_SESSION['unlockTime']){
         echo "You're still locked! Please try again in ".($_SESSION['unlockTime'] - time())." seconds";

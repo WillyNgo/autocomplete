@@ -4,6 +4,8 @@
  */
 include('dbUtility.php'); //For access to database
 include('loginAction.php'); //To login when user successfully registers.
+session_start();
+session_regenerate_id();
 
 /**
  * Adds a new user to the Users table in the database.
@@ -28,12 +30,14 @@ function registerUser($user, $password)
         
         //If user has been successfully added to the database, automatically log in
         if($stmt->execute()){
-            $_SESSION['username'] = $user;
-            header('location: index.php');
-            exit;
+            echo "<script type='text/javascript'>alert('USERNAME IS: $user');</script>";
+            login($user);
         }
     } catch (PDOException $ex) {
         echo $ex->getMessage();
+    }
+    finally{
+        unset($pdo);
     }
 }
 

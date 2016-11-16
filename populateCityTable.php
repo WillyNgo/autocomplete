@@ -4,7 +4,7 @@
  * Adds each line, substringing the appropriate information, into the database 
  */
 
-include('../dbUtility.php');
+require('dbUtility.php');
 
 try {
     $pdo = getDbConnection();

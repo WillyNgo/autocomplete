@@ -13,6 +13,7 @@
         session_regenerate_id();
         include('dbUtility.php');
         
+        //If there is no session set, redirect user to the login page.
         if(!isset($_SESSION['username'])) {
             header('location: loginPage.php');
             exit;
@@ -42,6 +43,7 @@
         //Logout
         if (isset($_POST['logout'])) {
             unset($_SESSION['username']);
+            $_SESSION = [];
             header('location: index.php');
             exit;
         }

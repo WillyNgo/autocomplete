@@ -3,7 +3,7 @@
  * This php file will create (and drop if already exists) the tables necessary 
  * for the project. There are 2 tables: cities and users.
  */
-require('../dbUtility.php');
+require('dbUtility.php');
 try {
     $pdo = getDbConnection();
     

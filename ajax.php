@@ -1,11 +1,9 @@
 <?php
-start_session();
-session_regenerate_id();
 header('Content-Type:application/json');
-
-require_once('dbUtility.php');
+require('dbUtility.php');
 $pdo = getDbConnection();
 $cityQuery = "SELECT weight, cityname FROM cities WHERE cityname LIKE ? ORDER BY weight DESC LIMIT 5;";
+/*
 $historyQuery = "SELECT weight, cityname FROM history WHERE username = ?;";
 
 $historyStmt = $pdo->prepare($historyQuery);
@@ -19,7 +17,7 @@ if($historyStmt->execute()){
     $cityname = $row['cityname'];
     $weight = $row['weight'];
 }
-
+*/
 //Preparing city Query
 $stmt = $pdo->prepare($cityQuery);
 //set fetchmode to fetch_class to create a City obj

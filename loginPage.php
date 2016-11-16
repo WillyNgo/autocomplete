@@ -15,15 +15,14 @@ and open the template in the editor.
             session_start();
             session_regenerate_id();
             
-        //This file will include validation methods
+        //These files will include validation methods
         include('validation.php');
         include('loginAction.php');
         
-        //Check current session if attempts has passed
+        //Check current session if too many attemptss
         if(!isset($_SESSION['attempts'])){
             $_SESSION['attempts'] = 0;
-        }else if($_SESSION['attempts'] >= 2)
-        {
+        }else if($_SESSION['attempts'] >= 2){
             lockUser();
         }
         ?>
@@ -31,6 +30,7 @@ and open the template in the editor.
         <h1 id="title">Auto Completion - Login</h1>
         <div id="formWrapper">
             <form id="searchForm" action="" method="get">
+                <!-- Disables the text fields and buttons if user is locked out -->
                 <p>Username: <input type="text" name="username" <?php if($_SESSION['attempts'] >= 2){ echo "disabled"; }?>/> </p>
                 <p>Password: <input type="password" name="password" <?php if($_SESSION['attempts'] >= 2){ echo "disabled"; }?>/></p>
                 <input type="submit" name="login" value="Log In" <?php if($_SESSION['attempts'] >= 2){ echo "disabled"; }?>/>
@@ -40,12 +40,10 @@ and open the template in the editor.
         
         <?php
         
-        var_dump($_SESSION['attempts']);
         //Login when user clicks
         if (isset($_GET['login'])) {
             $myUsername = $_GET['username'];
             $myPassword = $_GET['password'];
-            
             
             //Check if there's something in the username and password field
             if (empty($myUsername) || empty($myPassword)) {
@@ -59,7 +57,9 @@ and open the template in the editor.
             else if (!validatePassword($myUsername, $myPassword)) {
                 echo "<p class = 'error'>Invalid Username or Password</p>"; //Keep error message ambiguous to avoid too much info for potential hackers
                 incrementAttempt();
-            } else {
+            }
+            //Successful authentication - reset attempts.
+            else {
                 resetAttempts();
                 login($myUsername);
             }

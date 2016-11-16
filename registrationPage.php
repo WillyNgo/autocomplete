@@ -25,6 +25,10 @@
             $newusername = $_POST['newusername'];
             $newpassword = $_POST['newpassword'];
             $confirmpassword = $_POST['confirmpassword'];
+            
+            //Trim
+            trim($newusername);
+            
             //Check if there's something in the username and passwords field
             if (empty($newusername) || empty($newpassword) || empty($confirmpassword)) {
                 echo "<p class='error'>Please do not leave any fields blank</p>";
@@ -36,10 +40,13 @@
                 }
                 else if(usernameExists($newusername)) //Username must be unique
                 {
+                    echo "<script type='text/javascript'>alert('DOES NOT EXIST:');</script>";
+
                     echo "<p class = 'error'>Apologies, that username is already taken.";
                 }
                 else //If all information is ok, register user
                 {
+                    echo "<script type='text/javascript'>alert('REGISTERING:');</script>";
                     registerUser($newusername, $confirmpassword);
                 }
             }

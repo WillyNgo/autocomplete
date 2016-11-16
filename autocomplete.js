@@ -3,8 +3,7 @@ function init(){
     my.searchKey = null;
     $(function() {
         $("#searchBar").keyup(function(){
-            var keyword = $("#searchBar").val();
-            //TODO: Get username from php
+            var keyword = $("#searchBar").val().trim();
             my.searchKey = $.ajax({
                 url: "ajax.php",
                 data: {'keyword': keyword},
