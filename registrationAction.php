@@ -2,8 +2,8 @@
 /**
  * This php file takes care of registrating a new user
  */
-include('dbUtility.php'); //For access to database
-include('loginAction.php'); //To login when user successfully registers.
+require_once('dbUtility.php'); //For access to database
+require_once('loginAction.php'); //To login when user successfully registers.
 session_start();
 session_regenerate_id();
 

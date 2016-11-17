@@ -6,7 +6,7 @@
     </head>
         <body>
             <div class="myHeader">
-                <h1>Auto Completion - New Registration</h1>
+                <h1>Search City - New Registration</h1>
             </div>
         <div id="formWrapper">
             <form id="searchForm" action="" method="post">
@@ -20,8 +20,8 @@
         </div>
         <?php
         //This file will include validation methods;
-        include('validation.php');
-        include('registrationAction.php');
+        require_once('validation.php');
+        require_once('registrationAction.php');
         
         if(isset($_POST['register'])){
             $newusername = $_POST['newusername'];

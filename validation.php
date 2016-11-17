@@ -1,5 +1,5 @@
 <?php
-
+require_once('dbUtility.php');
 
 /**
  * This method checks the information submitted with the information in the database
@@ -13,7 +13,7 @@
 function validatePassword($user, $submittedPassword)
 {
     $isAuthenticated = false;
-    $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
+    $pdo = getDbConnection();
     $query = "SELECT username, hashedPassword FROM users WHERE username = ?";
     
     $stmt = $pdo->prepare($query);
@@ -42,7 +42,7 @@ function validatePassword($user, $submittedPassword)
 function usernameExists($submittedUsername)
 {
     $doesExists = false;
-    $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
+    $pdo = getDbConnection();
     $query = "SELECT username FROM users WHERE username = ?";
     $stmt = $pdo->prepare($query);
     

@@ -22,7 +22,7 @@
         
         ?>
         <div class="myHeader">
-            <h1 id="title">Auto Completion - Index <?php echo " : Welcome ".$_SESSION['username']; ?></h1>            
+            <h1 id="title">Search City - Index <?php echo " : Welcome ".$_SESSION['username']; ?></h1>            
         </div>
         <div id="formWrapper">
         <form id="searchForm" action="" method="post">
@@ -37,7 +37,7 @@
         
         
         <?php        
-//When user submits his entry
+        //When user submits his entry
         if(isset($_POST['add'])){
             $searchTerm = $_POST['searchBar']; 
            

@@ -3,8 +3,14 @@
  * Contains utility methods for database managing
  * @return \PDO
  */
+
+const HOST = "korra.dawsoncollege.qc.ca";
+const USER = "CS1435707";
+const DBNAME = "CS1435707";
+const DBPASS = "thriggiv";
+
 function getDbConnection(){
-    $pdo = new PDO('mysql:host=localhost;dbname=homestead', "homestead", "secret");
+    $pdo = new PDO('mysql:host='.HOST.';dbname='.DBNAME, USER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 }

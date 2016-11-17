@@ -13,14 +13,14 @@ and open the template in the editor.
     <body>
     <body>
         <?php
-            session_start();
-            session_regenerate_id();
+        session_start();
+        session_regenerate_id();
             
         //These files will include validation methods
         include('validation.php');
         include('loginAction.php');
         
-        //Check current session if too many attemptss
+        //Check current session and locks user if too many attempts
         if(!isset($_SESSION['attempts'])){
             $_SESSION['attempts'] = 0;
         }else if($_SESSION['attempts'] >= 2){
@@ -29,7 +29,7 @@ and open the template in the editor.
         ?>
         <div id="loginPageContainer">
         <div class="myHeader">
-            <h1 id="loginTitle">Auto Completion - Login</h1>
+            <h1 id="loginTitle">Search City - Login</h1>
         </div>
         <div id="formWrapper">
             <form id="searchForm" action="" method="get">
@@ -43,7 +43,7 @@ and open the template in the editor.
         </div>
         <?php
         
-        //Login when user clicks
+        //when user clicks on login, validate his information
         if (isset($_GET['login'])) {
             $myUsername = $_GET['username'];
             $myPassword = $_GET['password'];
@@ -56,12 +56,13 @@ and open the template in the editor.
                 echo "<p class='error'>Please do not leave any fields blank</p>";
             } 
             //Check if user exists - from validation.php
+            //Does not increment number of attempts when username doesn't exists
             else if (!usernameExists($myUsername)) { 
                 echo "<p>Invalid Username or Password</p>"; //Keep error message ambiguous to avoid too much info for potential hackers
             } 
-            //Validate password - from validation.php
+            //Validate password, if wrong increment attempt - from validation.php
             else if (!validatePassword($myUsername, $myPassword)) {
-                echo "<p class = 'error'>Invalid Username or Password</p>"; //Keep error message ambiguous to avoid too much info for potential hackers
+                echo "<p class = 'response'>Invalid Username or Password</p>"; //Keep error message ambiguous to avoid too much info for potential hackers
                 incrementAttempt();
             }
             //Successful authentication - reset attempts.
