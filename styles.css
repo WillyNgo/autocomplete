@@ -4,14 +4,46 @@
 */
 
 /* GENERAL */
+body{
+    margin:0;
+    padding: 0;
+    
+}
+
 p{
     font-family: Tahoma;
 }
 
+.response{
+    color: green;
+}
+
+#backgroundImage{
+    background-image: url('image/skyline2.png');
+    width: 100%;
+    height: 500px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 0px;
+}
+
+#backgroundImage2{
+    background-image: url('image/star.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    bottom: 0px;
+}
+
+
 /* LOGIN LAYOUT */
 .myHeader{
     width: 100%;
-    margin: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
     font-family: Helvetica;
 }
@@ -19,7 +51,8 @@ p{
 #formWrapper{
     padding: 50px;
     text-align: left;
-    background-color: green;
+    background-color: gainsboro;
+    
 }
 
 #loginPageContainer{
@@ -39,9 +72,14 @@ p{
 }
 
 #historyBox{
+    display: inline-table;
+    border: 1px solid black;
     border-bottom: 5px solid black;
+    margin-right: 50px;
+    background-color: ghostwhite;
+    width: 300px;
 }
 
 #historyBoxHeader{
-    border: 2px solid aqua;
+    border-bottom: 5px solid black;
 }

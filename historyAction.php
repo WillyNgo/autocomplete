@@ -54,11 +54,18 @@ function historyAlreadyExists($cityname, $user){
     return $alreadyExists;
 }
 
-
+/**
+ * Gets the 5 first item from the user's search history and displays them.
+ * @param type $username
+ */
 function setHistory($username){
-    $myHistory = getFromHistory($username);    
-    for($i = 0; $i < count($myHistory); $i++){
-        echo "<p>{$myHistory[$i]['cityname']}</p>";
+    $myHistory = getFromHistory($username);
+    $counter = count($myHistory);
+    if($counter > 5){
+        $counter = 5;
+    }
+    for($i = 0; $i < $counter; $i++){
+        echo "<p class='historyItem'>{$myHistory[$i]['cityname']}</p>";
     }
 }
 
@@ -79,7 +86,7 @@ function addToHistoryTable($user, $city) {
             $stmt->bindParam(4, $weight);
 
             if ($stmt->execute()) {
-                echo "SUCCESS!";
+                echo "<p class='response'>Successfully added new entry!</p>";
             }
         }
     } catch (PDOException $pdoe) {
@@ -90,12 +97,14 @@ function addToHistoryTable($user, $city) {
 function deleteHistory($user){
     $pdo = getDbConnection();
     $query = "DELETE FROM history WHERE username = ?";
-    
+    $deleted = false;
     $stmt = $pdo->prepare($query);
     
     $stmt->bindParam(1, $user);
     
     if($stmt->execute()){
-        echo "Your user history has been deleted!";
+        $deleted= true;
     }
+    
+    return $deleted;
 }

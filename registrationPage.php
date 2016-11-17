@@ -4,7 +4,6 @@
         <title>Registration</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
-    <body>
         <body>
             <div class="myHeader">
                 <h1>Auto Completion - New Registration</h1>
@@ -62,6 +61,8 @@
             exit;
         }
         ?>
+            
+            <div id="backgroundImage"></div>
     </body>
-    </body>
+    
 </html>

@@ -15,8 +15,7 @@ $historyStmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "City");
 $historyStmt->bindParam(1, $_SESSION['username']);
 $historyStmt->bindParam(2, $keyword);
 $counter = 0;
-//TODO: Take history entries and put them in the array before
-//Then do cities while checking if its already in the array.
+
 if($historyStmt->execute()){
     while($row = $historyStmt->fetch()){
         $results[] = $row;

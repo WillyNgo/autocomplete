@@ -21,7 +21,10 @@
         }
         
         ?>
-        <h1 id="title">Auto Completion - Index <?php echo " : Welcome ".$_SESSION['username']; ?></h1>            
+        <div class="myHeader">
+            <h1 id="title">Auto Completion - Index <?php echo " : Welcome ".$_SESSION['username']; ?></h1>            
+        </div>
+        <div id="formWrapper">
         <form id="searchForm" action="" method="post">
             <input list="history" name="searchBar" placeholder="Search a city..." id="searchBar"/>
             <datalist id="history">
@@ -30,16 +33,11 @@
             <input type="submit" name="logout" value="Logout"/>
             <input type="submit" name="delete" value="Delete history"/>
         </form>
-        
-        <div id="historyBox">
-            <div id="historyBoxHeader">Recent Searches</div>
-            <div id="historyBoxItems">
-                
-            </div>
         </div>
         
-        <?php
-        //When user submits his entry
+        
+        <?php        
+//When user submits his entry
         if(isset($_POST['add'])){
             $searchTerm = $_POST['searchBar']; 
            
@@ -48,7 +46,7 @@
                 addToHistoryTable($_SESSION['username'], $_POST['searchBar']);
             }
             else{
-                echo "Not a valid city!";
+                echo "<p class='response'>Not a valid city!</p>";
             }
         }
         //Logout
@@ -59,13 +57,27 @@
             exit;
         }
         
+        //Set the user's recent search
+        echo <<<history
+        <div id="historyBox">
+            <div id="historyBoxHeader"><p>Recent Searches</p</div>
+            <div id="historyBoxItems">
+                
+            </div>
+        </div>
+history;
+        
+        
         //delete history
         if(isset($_POST['delete'])){
-            deleteHistory($_SESSION['username']);
+            if(deleteHistory($_SESSION['username'])){
+                echo "<p class='response'>Your user history has been deleted!</p>";
+            }
         }
         
-        //Set the user's recent search
         setHistory($_SESSION['username']);
         ?>
+        
+        <div id="backgroundImage"></div>
     </body>
 </html>

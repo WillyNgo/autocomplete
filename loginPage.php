@@ -78,6 +78,8 @@ and open the template in the editor.
         }
         ?>
         
+        <div id="backgroundImage"></div>
+        
     </body>
 </body>
 </html>
