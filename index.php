@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Autocomplete</title>
+        <title>Search City!</title>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="autocomplete.js"></script>
         <link rel="stylesheet" type="text/css" href="styles.css">
@@ -12,6 +12,7 @@
         session_start();
         session_regenerate_id();
         include('dbUtility.php');
+        include('historyAction.php');
         
         //If there is no session set, redirect user to the login page.
         if(!isset($_SESSION['username'])) {
@@ -27,6 +28,7 @@
             </datalist>
             <input type="submit" name="add" id="addButton" value="Submit"/>
             <input type="submit" name="logout" value="Logout"/>
+            <input type="submit" name="delete" value="Delete history"/>
         </form>
         
         <div id="historyBox">
@@ -55,6 +57,11 @@
             $_SESSION = [];
             header('location: index.php');
             exit;
+        }
+        
+        //delete history
+        if(isset($_POST['delete'])){
+            deleteHistory($_SESSION['username']);
         }
         
         //Set the user's recent search

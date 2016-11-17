@@ -27,6 +27,7 @@ function showSuggestions(){
                     datalist.innerHTML = null;
                     var received = JSON.parse(result);
                     for(var i = 0; i < received.length; i++) {
+                        //city is an city object
                         var city = received[i];
                         var option = document.createElement("OPTION");
                         var item = document.createTextNode(city['cityname']);

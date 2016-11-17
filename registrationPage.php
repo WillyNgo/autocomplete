@@ -1,11 +1,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Registration</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
         <body>
-        <h1 id="title">Auto Completion - New Registration</h1>
+            <div class="myHeader">
+                <h1>Auto Completion - New Registration</h1>
+            </div>
         <div id="formWrapper">
             <form id="searchForm" action="" method="post">
                 <p>New Username: <input type="text" name="newusername"> </p>
@@ -26,8 +29,10 @@
             $newpassword = $_POST['newpassword'];
             $confirmpassword = $_POST['confirmpassword'];
             
-            //Trim
-            trim($newusername);
+            //make things safe
+            strip_tags($newusername);
+            strip_tags($newpassword);
+            strip_tags($confirmpassword);
             
             //Check if there's something in the username and passwords field
             if (empty($newusername) || empty($newpassword) || empty($confirmpassword)) {

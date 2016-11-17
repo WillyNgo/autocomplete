@@ -7,7 +7,8 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <title>City Search</title>
     </head>
     <body>
     <body>
@@ -26,8 +27,10 @@ and open the template in the editor.
             lockUser();
         }
         ?>
-        
-        <h1 id="title">Auto Completion - Login</h1>
+        <div id="loginPageContainer">
+        <div class="myHeader">
+            <h1 id="loginTitle">Auto Completion - Login</h1>
+        </div>
         <div id="formWrapper">
             <form id="searchForm" action="" method="get">
                 <!-- Disables the text fields and buttons if user is locked out -->
@@ -37,13 +40,16 @@ and open the template in the editor.
                 <input type="submit" name="signup" value="Sign up" <?php if($_SESSION['attempts'] >= 2){ echo "disabled"; }?>/>
             </form>
         </div>
-        
+        </div>
         <?php
         
         //Login when user clicks
         if (isset($_GET['login'])) {
             $myUsername = $_GET['username'];
             $myPassword = $_GET['password'];
+            
+            strip_tags($myUsername);
+            strip_tags($myPassword);
             
             //Check if there's something in the username and password field
             if (empty($myUsername) || empty($myPassword)) {

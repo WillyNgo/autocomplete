@@ -1,34 +1,44 @@
 <?php
 session_start();
+session_regenerate_id();
 header('Content-Type:application/json');
 require('dbUtility.php');
 $pdo = getDbConnection();
-$cityQuery = "SELECT weight, cityname FROM cities WHERE cityname LIKE ? ORDER BY weight DESC LIMIT 5;";
-/*
-$historyQuery = "SELECT weight, cityname FROM history WHERE username = ?;";
 
+$keyword = $_GET['keyword'];
+$keyword = $keyword.'%';
+//Prepare history query
+$historyQuery = "SELECT weight, cityname FROM history WHERE username = ? AND cityname LIKE ? LIMIT 5;";
 $historyStmt = $pdo->prepare($historyQuery);
+$historyStmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "City");    
 
-$historyStmt->bindParam(1, $SESSION['username']);
-
+$historyStmt->bindParam(1, $_SESSION['username']);
+$historyStmt->bindParam(2, $keyword);
+$counter = 0;
 //TODO: Take history entries and put them in the array before
 //Then do cities while checking if its already in the array.
 if($historyStmt->execute()){
-    $row = $historyStmt->fetch();
-    $cityname = $row['cityname'];
-    $weight = $row['weight'];
+    while($row = $historyStmt->fetch()){
+        $results[] = $row;
+        $counter++;
+    }
 }
-*/
 
+$remainder = 5 - $counter;
+if($remainder < 0){
+    $remainder = 0;
+}
 
 //Preparing city Query
+$cityQuery = "SELECT weight, cityname FROM cities WHERE cityname LIKE ? ORDER BY weight DESC LIMIT $remainder;";
+/*foreach($results as $item){
+    $cityQuery = $cityQuery." AND cityname != '".$item[1]."'";
+}*/
 $stmt = $pdo->prepare($cityQuery);
 //set fetchmode to fetch_class to create a City obj
 $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "City");    
 //Append % so that it acts like a wild card in the select query
-$keyword = $_GET['keyword'];
 
-$keyword = $keyword.'%';
 $stmt->bindParam(1, $keyword);
     
 //Preparing history Query
@@ -36,7 +46,9 @@ $stmt->bindParam(1, $keyword);
 
 if($stmt->execute()){
     //Results is an array containing city objects
-    $results = $stmt->fetchAll();
+    while($row = $stmt->fetch()){
+        $results[] =$row;
+    }
 }
 
 //Send array to ajax.php

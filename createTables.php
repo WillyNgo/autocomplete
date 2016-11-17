@@ -36,7 +36,8 @@ function createHistory($pdo){
             . 'id INT PRIMARY KEY AUTO_INCREMENT,'
             . 'username VARCHAR(255),'
             . 'cityname VARCHAR(255),'
-            . 'weight INT'
+            . 'searchDate TimeStamp DEFAULT CURRENT_TIMESTAMP,'
+            . 'weight int'
             . ');';
     
     $pdo->exec($historyQuery);

@@ -3,13 +3,43 @@
     Author     : William Ngo
 */
 
+/* GENERAL */
+p{
+    font-family: Tahoma;
+}
+
+/* LOGIN LAYOUT */
+.myHeader{
+    width: 100%;
+    margin: 50px;
+    text-align: center;
+    font-family: Helvetica;
+}
+
+#formWrapper{
+    padding: 50px;
+    text-align: left;
+    background-color: green;
+}
+
+#loginPageContainer{
+    
+}
+
+/* REGISTRATION */
+#searchForm{
+    
+}
+
+
+/*INDEX */
 #searchBar {
 	width: 200px;
 	font-size: 1em;
 }
 
 #historyBox{
-    border: 5px solid black;
+    border-bottom: 5px solid black;
 }
 
 #historyBoxHeader{
